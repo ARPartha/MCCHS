@@ -1,0 +1,12 @@
+.bbox {
+    display: none;
+    /* width: 100%; */
+    position: absolute;
+}
+
+.bNid:hover+.bbox,
+.bbox:hover {
+    display: block;
+    position: absolute;
+    z-index: 100;
+}

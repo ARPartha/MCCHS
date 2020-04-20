@@ -1,0 +1,12 @@
+.box {
+    display: none;
+    /* width: 100%; */
+    position: absolute;
+}
+
+.Nid:hover+.box,
+.box:hover {
+    display: block;
+    position: absolute;
+    z-index: 100;
+}
