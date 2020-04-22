@@ -1,144 +1,169 @@
-// Making Bank Data// 
-const bankhlist = document.querySelector('#bankhlist');
-const Bkashhlist = document.querySelector('#bkashhlist');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script> 
 
-// render data
-
-function renderdata(element) {
-
-    if (element.data().transectionType == 'bank') {
-        if (element.data().requestStatus != 'pending') {
-            console.log(element.data().requestStatus);
-            let li = document.createElement('tr');
-            let Name = document.createElement('td');
-            let FatherName = document.createElement('td');
-            let Phone = document.createElement('td');
-            let DateOfBirth = document.createElement('td');
-            let Address = document.createElement('td');
-            let HousingSavingNo = document.createElement('td');
-            let Acc_h_name = document.createElement('td');
-            let Acc_num = document.createElement('td');
-            let BankName = document.createElement('td');
-            let BranchName = document.createElement('td');
-            let Chequecol = document.createElement('td');
-            let cheque = document.createElement('a');
-            cheque.href = element.data().requisitionChequePhotoUrl;
-            let div = document.createElement('div');
-            let chequeFrame = document.createElement('img');
-            cheque.classList.add('Nid');
-            div.classList.add('box');
-            chequeFrame.style.width = '250px';
-            chequeFrame.style.height = '200px';
-            chequeFrame.src = element.data().requisitionChequePhotoUrl;
-            cheque.href = element.data().requisitionChequePhotoUrl;
-            /////////////////////////
-
-
-            //////////////////////////
-            let Status = document.createElement('td');
-            let adminmessage = document.createElement('td');
-
-
-            li.setAttribute('row-id', element.id);
-            Name.textContent = element.data().name;
-            FatherName.textContent = element.data().fatherName;
-            Phone.textContent = element.data().phone;
-            DateOfBirth.textContent = element.data().dateOfBirth;
-            Address.textContent = element.data().address;
-            HousingSavingNo.textContent = element.data().housingnumber;
-            Acc_h_name.textContent = element.data().accountHolderName;
-            Acc_num.textContent = element.data().accountNumber;
-            BankName.textContent = element.data().nameOftheBank;
-            BranchName.textContent = element.data().branceName;
-            cheque.textContent = element.data().requisitionChequePhotoUrl;
-            Status.textContent = element.data().requestStatus;
-            adminmessage.textContent = element.data().adminMsg;
-            cheque.href = element.data().requisitionChequePhotoUrl;
-            li.appendChild(Name);
-            li.appendChild(FatherName);
-            li.appendChild(Phone);
-            li.appendChild(DateOfBirth);
-            li.appendChild(Address);
-            li.appendChild(HousingSavingNo);
-            li.appendChild(Acc_h_name);
-            li.appendChild(Acc_num);
-            li.appendChild(BankName);
-            li.appendChild(BranchName);
-            //////////////////// front/////////
-            Chequecol.appendChild(cheque);
-            Chequecol.appendChild(div);
-            div.appendChild(chequeFrame);
-            li.appendChild(Chequecol);
-            //////////////////////back
-            li.appendChild(Status);
-            li.appendChild(adminmessage);
-            bankhlist.appendChild(li);
-        }
-    }
-    //////            bkash
-    else if (element.data().transectionType == 'bkash') {
-        if (element.data().requestStatus != 'pending') {
-
-            let li = document.createElement('tr');
-            let Name = document.createElement('td');
-            let FatherName = document.createElement('td');
-            let Phone = document.createElement('td');
-            let DateOfBirth = document.createElement('td');
-            let Address = document.createElement('td');
-            let HousingSavingNo = document.createElement('td');
-            let bkashNo = document.createElement('td');
-            let Chequecol = document.createElement('td');
-            let cheque = document.createElement('a');
-            cheque.href = element.data().requisitionChequePhotoUrl;
-            let div = document.createElement('div');
-            let chequeFrame = document.createElement('img');
-            cheque.classList.add('Nid');
-            div.classList.add('box');
-            chequeFrame.style.width = '250px';
-            chequeFrame.style.height = '200px';
-            chequeFrame.src = element.data().requisitionChequePhotoUrl;
-
-
-            let Status = document.createElement('td');
-            let adminmessage = document.createElement('td');
-            li.setAttribute('row-id', element.id);
-            Name.textContent = element.data().name;
-            FatherName.textContent = element.data().fatherName;
-            Phone.textContent = element.data().phone;
-            DateOfBirth.textContent = element.data().dateOfBirth;
-            Address.textContent = element.data().address;
-            HousingSavingNo.textContent = element.data().housingnumber;
-            bkashNo.textContent = element.data().bkashNumber;
-            Status.textContent = element.data().requestStatus;
-            cheque.textContent = element.data().requisitionChequePhotoUrl;
-            adminmessage.textContent = element.data().adminMsg;
-            cheque.href = element.data().requisitionChequePhotoUrl;
-            li.appendChild(Name);
-            li.appendChild(FatherName);
-            li.appendChild(Phone);
-            li.appendChild(DateOfBirth);
-            li.appendChild(Address);
-            li.appendChild(HousingSavingNo);
-            li.appendChild(bkashNo);
-          
-            Chequecol.appendChild(cheque);
-            Chequecol.appendChild(div);
-            div.appendChild(chequeFrame);
-            li.appendChild(Chequecol);
-            
-            li.appendChild(Status);
-            li.appendChild(adminmessage);
-            Bkashhlist.appendChild(li);
-        }
-    }
+        <style>
+            * {
+  outline:none;
+	border:none;
+	margin:0px;
+	padding:0px;
+	font-family:Courier, monospace;
 }
-// end bank data render
+body {
+	background:#333 url(https://static.tumblr.com/maopbtg/a5emgtoju/inflicted.png) repeat;        
+}
+#paper {
+	color:#FFF;
+	font-size:20px;
+}
+#margin {
+	margin-left:12px;
+	margin-bottom:20px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none; 
+}
+#comment {
+	width:500px;
+	overflow:hidden;
+	background-color:#FFF;
+	color:#222;
+	font-family:Courier, monospace;
+	font-weight:normal;
+	font-size:24px;
+	resize:none;
+	line-height:40px;
+	padding-left:100px;
+	padding-right:100px;
+	padding-top:45px;
+	padding-bottom:34px;
+	background-image:url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png), url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
+	background-repeat:repeat-y, repeat;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	-webkit-box-shadow: 0px 2px 14px #000;
+	box-shadow: 0px 2px 14px #000;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #FFF;
+}
+#submit {
+	cursor:pointer;
+	margin-top:20px;
+	float:right;
+	height:40px;
+	padding-left:24px;
+	padding-right:24px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:20px;
+	color:#FFF;
+	text-shadow: 0px -1px 0px #000000;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border-top:1px solid #FFF;
+	-webkit-box-shadow: 0px 2px 14px #000;
+	box-shadow: 0px 2px 14px #000;
+	background-color: #62add6;
+	background-image:url(https://static.tumblr.com/maopbtg/ZHLmgtok7/button.png);
+	background-repeat:repeat-x;
+}
+#submit:active {
+	zoom: 1;
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+#submit:focus {
+	zoom: 1;
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+#wrapper {
+	width:700px;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:24px;
+	margin-bottom:100px;
+}
+        </style>
 
 
-db.collection('requisition').get().then((snapshot) => {
-    console.log(snapshot.docs);
-    snapshot.docs.forEach(element => {
-        console.log(element.data())
-        renderdata(element);
-    });
-})
+</head>
+<body>
+    
+    <div id="wrapper">
+
+	<form id="paper" method="get" action="">
+			<textarea placeholder="Enter something ." id="comment" name="comment" rows="4" style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px; "></textarea>  
+		<br>
+        <input id="submit" type="submit" value="submit"  onclick="submit()">
+         <a href="index.php" id="submit" style="float:left">Back</a>
+		
+	</form>
+
+</div>
+</body>
+</html>
+
+
+<script>
+    var queryString = decodeURIComponent(window.location.search);
+    queryString = queryString.substring(1);
+    var queries = queryString.split("&");
+for (var i = 0; i < queries.length; i++)
+{
+ // document.write(queries[i] + "<br>");
+}
+</script>
+
+
+
+<script>
+
+         var firebaseConfig = {
+                            apiKey: "AIzaSyCNV0YyhHuXSDYA09raOqm4yltieY3tVUg",
+                            authDomain: "mcchs-83f7d.firebaseapp.com",
+                            databaseURL: "https://mcchs-83f7d.firebaseio.com",
+                            projectId: "mcchs-83f7d",
+                            storageBucket: "mcchs-83f7d.appspot.com",
+                            messagingSenderId: "836225567141",
+                            appId: "1:836225567141:web:d899394ae2f6f1bd47804c",
+                            measurementId: "G-G15VNHW1JB"
+                        };
+                        // Initialize Firebase
+                        firebase.initializeApp(firebaseConfig);
+                       // firebase.analytics();
+                       const db = firebase.firestore();
+                    
+    function submit(){
+        alert('hello');
+        var valur = '<?php echo $_GET['id'];?>';
+        var status= '<?php echo $_GET['status'];?>';
+        console.log(valur);
+        console.log(status);
+         var value = document.getElementById('comment').value;
+         console.log(value);
+        // window.location = 'index.php';
+
+            db.collection('requisition').doc(valur).update({
+                adminMsg : value,
+                requestStatus : status
+                })
+                
+              
+    }
+ 
+   
+ 
+       
+        
+
+</script>

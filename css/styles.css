@@ -9913,7 +9913,7 @@ body {
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-    padding-left: 225px;
+    padding-left: 180px;
     top: 56px;
 }
 
@@ -10020,6 +10020,7 @@ body {
 .sb-sidenav-dark {
     background-color: #212529;
     color: rgba(255, 255, 255, 0.5);
+    width: 170px;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {

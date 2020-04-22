@@ -2,58 +2,117 @@
 <html lang="en">
     <head>
         <?php
-    include 'header.php';
+    // include 'header.php';
+
     ?>
+          <style>
+            * {
+  outline:none;
+	border:none;
+	margin:0px;
+	padding:0px;
+	font-family:Courier, monospace;
+}
+body {
+    background-image:url("background.jpg");   
+    background-size: auto;     
+}
+#paper {
+    margin-top: 40px;
+    color:#FFF;
+    align-content: center;
+    text-align: center;
+    font-size:20px;
+    /* width:1000px; */
+    height: 300px;
+}
+#margin {
+	margin-left:12px;
+	margin-bottom:20px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none; 
+}
+#comment {
+    width:350px;
+    height: 20px;
+	overflow:hidden;
+	background-color:#FFF;
+	color:#222;
+	font-family:Courier, monospace;
+	font-weight:normal;
+	font-size:24px;
+	resize:none;
+	line-height:25px;
+	padding-left:100px;
+	padding-right:100px;
+	padding-top:45px;
+	padding-bottom:34px;
+	
+	background-repeat:repeat-y, repeat;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	-webkit-box-shadow: 0px 2px 14px #000;
+	box-shadow: 0px 2px 14px #000;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #FFF;
+}
+#submit {
+	cursor:pointer;
+	margin-top:50px;
+	
+	height:40px;
+	padding-left:24px;
+	padding-right:24px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:20px;
+	color:#FFF;
+	text-shadow: 0px -1px 0px #000000;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border-top:1px solid #FFF;
+	-webkit-box-shadow: 0px 2px 14px #000;
+	box-shadow: 0px 2px 14px #000;
+	background-color: #62add6;
+	background-image:url(https://static.tumblr.com/maopbtg/ZHLmgtok7/button.png);
+	background-repeat:repeat-x;
+}
+#submit:active {
+	zoom: 1;
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+#submit:focus {
+	zoom: 1;
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+#wrapper {
+	width:700px;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:24px;
+	margin-bottom:100px;
+}
+        </style>
+
     </head>
     <body class="bg-primary">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
-                                    <div class="card-body">
-                                        <form action="logdata.php" method="post">
-                                            <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                    <input class="form-control py-4" name="email" id="inputEmailAddress" type="email" placeholder="Enter email address" />
-                                                </div>
-                                            <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label>
-                                                     <input class="form-control py-4" name="pass" id="inputPassword" type="password" placeholder="Enter password" />
-                                                </div>
-                                            <!-- <div class="form-group">
-                                                <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>
-                                            </div> -->
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><input type="submit" value="Login"></div>
-                                        </form>
-                                    </div>
-                                    <!-- <div class="card-footer text-center">
-                                        <div class="small"><a href="register.php">Need an account? Sign up!</a></div>
-                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
+        <div id="wrapper">
+        <img src="logo.jpeg" alt="" width="150px" height="150px" style="margin-left:45%; border-radius: 80px">
+            <form id="paper" method="post" action="logdata.php">
+                <input placeholder="Enter Email" id="comment" name="email"  style="overflow: hidden; word-wrap: break-word; resize: none; "></input> 
+               <input placeholder="Enter password" id="comment" name="pass"  style="overflow: hidden; word-wrap: break-word; resize: none;margin-top:20px; "></input> 
+                <br>
+                <input id="submit" type="submit" value="login">
+                
+            </form>
+
         </div>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        
     </body>
 </html>
