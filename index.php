@@ -2,20 +2,25 @@
 <html>
 <head>
     <?php
+     
+//    if( !isset( $_SESSION['username'] ) ) {
+//     header("Location: login.php");
+//  }
     include 'header.php';
     ?>
 </head>
 <body>
 <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">MCCHS</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
+            <a class="navbar-brand" href="index.php">MCCHS <img src="logo.jpeg" alt="" width="50px" style="border-radius: 40px" height="50px"></a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
             >
+            
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-divider" style="float: right;"></div>
-                        <a class="dropdown-item" href="login.php">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -39,7 +44,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        Admin
                     </div>
                 </nav>
             </div>
@@ -61,21 +66,22 @@
                                     <table id="bankTable" class="display" style="width:100%">
                                         <thead>
                                              <tr>
+                                                <th style="width:60px";>SL</th>
                                                 <th>Name</th>
                                                 <th>Father's Name</th>
                                                 <th>MobileNo</th>
-                                                <th>DateOfBirth</th>
+                                                <th>Date of Birth</th>
                                                 <th>Address</th>
                                                 <th>SavingNo</th>
                                                 <th>Account Holder Name</th>
                                                 <th>Account Number</th>
                                                 <th>Bank Name</th>
                                                 <th>Branch Name</th>
-                                                <th>check Picture</th>
+                                                <th>cheque Picture</th>
                                                 <th>Status</th>
                                                 </tr>
                                         </thead>
-                                        <tbody id="blist">
+                                        <tbody id="banklist">
                                                             
                                         </tbody>
                                                          
@@ -94,21 +100,23 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search By Saving Number" title="Type in a name">
+                                <input type="text" id="myInputb" onkeyup="myFunction2()" placeholder="Search By Saving Number" title="Type in a name">
                                     <table id="bkashTable" class="display" style="width:100%">
                                         <thead>
                                              <tr>
+                                                <th style="width:60px";>SL</th>
                                                 <th>Name</th>
                                                 <th>Father's Name</th>
                                                 <th>MobileNo</th>
-                                                <th>DateOfBirth</th>
+                                                <th>Date of Birth</th>
                                                 <th>Address</th>
-                                                <th>SavingNo</th>
-                                                <th>check Picture</th>
+                                                <th>Saving No</th>
+                                                <th>Bkash Number</th>
+                                                <th>cheque Picture</th>
                                                 <th>Status</th>
                                                 </tr>
                                         </thead>
-                                        <tbody id="blist">
+                                        <tbody id="bkashlist">
                                                             
                                         </tbody>
                                                          
@@ -138,26 +146,12 @@
                        $('#bankexcel').click(function(){
                            XLExport('bankTable','bankTable'); 
                        });   
-                    //    function XLExport(tableId){
-                    //     var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
-                    //     var textRange;
-                    //     var j = 0;
-                    //     tab = document.getElementById(tableId);
-                    //     for (j = 0 ; j < tab.rows.length ; j++) {
-                    //         tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-                    //     }
-                    //     tab_text = tab_text + "</table>";
-                    //     tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-                    //     tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-                    //     tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // remove input params
-                    //     sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-                    //     return (sa);
-                    //    }
-                        
+                                           
                             function XLExport(tableId, filename = ''){
                                     var downloadurl;
                                     var dataFileType = 'application/vnd.ms-excel';
                                     var tableSelect = document.getElementById(tableId);
+                                    
                                     var tableHTMLData = tableSelect.outerHTML.replace(/ /g, '%20');
                                     
                                     // Specify file name
@@ -203,29 +197,71 @@
                 evt.currentTarget.className += " active";
                 }
                 </script>
-                <script>
-                    function myFunction() {
-                    var input, filter, table, tr, td,td2, i, txtValue;
-                    input = document.getElementById("myInput");
-                    filter = input.value.toUpperCase();
-                    table = document.getElementById("example");
-                    tr = table.getElementsByTagName("tr");
-                    for (i = 0; i < tr.length; i++) {
-                        td = tr[i].getElementsByTagName("td")[5] ;
-                        td2= tr[i].getElementsByTagName("td")[1] ;
-                        if (td ) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
+                 <script>
+                        function myFunction() {
+                        var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("myInput");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("bankTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[6] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
                         }
-                        
-                        }
-                        
-                    }
                 }
-                </script>
-                
+                function myFunction2() {
+                        var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("myInputb");
+                        console.log(input);
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("bkashTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[6] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
+                        }
+                }
+</script>
+                <!-- Connect To firebase -->
+                <script>
+                        // Your web app's Firebase configuration
+                        var firebaseConfig = {
+                            apiKey: "AIzaSyCNV0YyhHuXSDYA09raOqm4yltieY3tVUg",
+                            authDomain: "mcchs-83f7d.firebaseapp.com",
+                            databaseURL: "https://mcchs-83f7d.firebaseio.com",
+                            projectId: "mcchs-83f7d",
+                            storageBucket: "mcchs-83f7d.appspot.com",
+                            messagingSenderId: "836225567141",
+                            appId: "1:836225567141:web:d899394ae2f6f1bd47804c",
+                            measurementId: "G-G15VNHW1JB"
+                        };
+                        // Initialize Firebase
+                        firebase.initializeApp(firebaseConfig);
+                       // firebase.analytics();
+                       const db = firebase.firestore();
+                      
+            </script>
+            <script src="request.js"></script>
+                <!-- Connect to firebase -->
 </body>
 </html> 

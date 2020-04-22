@@ -10,7 +10,7 @@ thead {
 tbody {
     text-align: center;
     width: 100%;
-    display: block ruby;
+    display: block;
     /* overflow: scroll; */
 }
 
@@ -27,7 +27,18 @@ th {
 }
 
 tr {
+    text-align: center;
     width: 200px;
+    height: 60px;
+    padding: 2px;
+    margin: 15px;
+    border: 1px solid black;
+}
+
+td {
+    text-align: center;
+    width: 200px;
+    height: 60px;
     padding: 2px;
     margin: 15px;
     border: 1px solid black;

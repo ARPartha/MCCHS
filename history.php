@@ -2,14 +2,17 @@
 <html>
 <head>
     <?php
+    // if( !isset( $_SESSION['username'] ) ) {
+    //     header("Location: login.php");
+    //  }
     include 'header.php';
     ?>
 </head>
 <body>
 <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Start Bootstrap</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
-            >
+        <a class="navbar-brand" href="index.php">MCCHS <img src="logo.jpeg" alt="" width="50px" style="border-radius: 40px" height="50px"></a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
+          >
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -39,7 +42,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        Admin
                     </div>
                 </nav>
             </div>
@@ -49,23 +52,28 @@
             <div class="tab">
                 <button class="tablinks" onclick="openCity(event, 'Bank')">Bank</button>
                 <button class="tablinks" onclick="openCity(event, 'Bkash')">Bkash</button>
-
                 </div>
 
                 <div id="Bank" class="tabcontent">
-                <h1 class="mt-4">History</h1> 
+                <h1 class="mt-4">Request</h1> 
                                                
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
+                                <div> 
+                                    <button id="accept" value="accept" onclick="myCheck()">Accept</button>
+                                    <button id="reject" value="reject" onclick="myCheck2()">Reject</button>
+                                </div>
+                                <br>
                                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search By Saving Number" title="Type in a name">
-                                    <table id="bankTable" class="display" style="width:100%">
+                                    <table id="bankhTable" class="display" style="width:100%">
                                         <thead>
                                              <tr>
+                                                <th style="width:60px";>SL</th>
                                                 <th>Name</th>
                                                 <th>Father's Name</th>
                                                 <th>MobileNo</th>
-                                                <th>DateOfBirth</th>
+                                                <th>Date of Birth</th>
                                                 <th>Address</th>
                                                 <th>SavingNo</th>
                                                 <th>Account Holder Name</th>
@@ -74,9 +82,10 @@
                                                 <th>Branch Name</th>
                                                 <th>cheque Picture</th>
                                                 <th>Status</th>
-                                             </tr>
+                                                <th>Admin Message</th>
+                                                </tr>
                                         </thead>
-                                        <tbody id="blist">
+                                        <tbody id="bankhlist">
                                                             
                                         </tbody>
                                                          
@@ -85,32 +94,39 @@
                         </div>
                 </div>
                 <div class="card mb-4">
-                        <Button id="bankexcel">Export Excel</Button>
+                        <Button id="bankhexcel">Export Excel</Button>
                 </div>
                 </div>
 
                 <div id="Bkash" class="tabcontent">
-                <h1 class="mt-4">History</h1> 
+                <h1 class="mt-4">Request</h1> 
                                                
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search By Saving Number" title="Type in a name">
-                                    <table id="bkashTable" class="display" style="width:100%">
+                            <div> 
+                                    <button id="acceptb" value="accept" onclick="myCheck3()">Accept</button>
+                                    <button id="rejectb" value="reject" onclick="myCheck4()">Reject</button>
+                                </div>
+                                <br>
+                                <input type="text" id="myInputb" onkeyup="myFunction2()" placeholder="Search By Saving Number" title="Type in a name">
+                                    <table id="bkashhTable" class="display" style="width:100%">
                                         <thead>
                                              <tr>
+                                             <th style="width:60px";>SL</th>
                                                 <th>Name</th>
                                                 <th>Father's Name</th>
                                                 <th>MobileNo</th>
-                                                <th>DateOfBirth</th>
+                                                <th>Date of Birth</th>
                                                 <th>Address</th>
-                                                <th>SavingNo</th>
+                                                <th>Saving No</th>
                                                 <th>Bkash Number</th>
                                                 <th>cheque Picture</th>
                                                 <th>Status</th>
+                                                <th>Admin Message</th>
                                                 </tr>
                                         </thead>
-                                        <tbody id="blist">
+                                        <tbody id="bkashhlist">
                                                             
                                         </tbody>
                                                          
@@ -119,7 +135,7 @@
                         </div>
                 </div> 
                 <div class="card mb-4">
-                        <Button id="bkashexcel">Export Excel</Button>
+                        <Button id="bkashhexcel">Export Excel</Button>
                 </div>
                 </div>
                 <!-- Tab     -->
@@ -133,29 +149,14 @@
                 <!--Printing Excel  -->
                 <script type="text/javascript">
                 ///// Bkash 
-                       $('#bkashexcel').click(function(){
-                           XLExport('bkashTable','bkashTable'); 
+                       $('#bkashhexcel').click(function(){
+                           XLExport('bkashhTable','bkashhTable'); 
                        }); 
                 ///// Bank        
-                       $('#bankexcel').click(function(){
-                           XLExport('bankTable','bankTable'); 
+                       $('#bankhexcel').click(function(){
+                           XLExport('bankhTable','bankhTable'); 
                        });   
-                    //    function XLExport(tableId){
-                    //     var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
-                    //     var textRange;
-                    //     var j = 0;
-                    //     tab = document.getElementById(tableId);
-                    //     for (j = 0 ; j < tab.rows.length ; j++) {
-                    //         tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-                    //     }
-                    //     tab_text = tab_text + "</table>";
-                    //     tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-                    //     tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-                    //     tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // remove input params
-                    //     sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-                    //     return (sa);
-                    //    }
-                        
+                                           
                             function XLExport(tableId, filename = ''){
                                     var downloadurl;
                                     var dataFileType = 'application/vnd.ms-excel';
@@ -205,29 +206,168 @@
                 evt.currentTarget.className += " active";
                 }
                 </script>
-                <script>
-                    function myFunction() {
-                    var input, filter, table, tr, td,td2, i, txtValue;
-                    input = document.getElementById("myInput");
-                    filter = input.value.toUpperCase();
-                    table = document.getElementById("example");
-                    tr = table.getElementsByTagName("tr");
-                    for (i = 0; i < tr.length; i++) {
-                        td = tr[i].getElementsByTagName("td")[5] ;
-                        td2= tr[i].getElementsByTagName("td")[1] ;
-                        if (td ) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
+                 <script>
+                        function myFunction() {
+                        var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("myInput");
+                        console.log(input);
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("bankhTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[6] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
                         }
-                        
-                        }
-                        
-                    }
                 }
-                </script>
-                
+                function myCheck(){
+                    var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("accept");
+                        console.log(input);
+                        filter = input.value.toUpperCase();
+                        console.log(filter);
+                        table = document.getElementById("bankhTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[12] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
+                        }
+                }
+                function myCheck2(){
+                    var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("reject");
+                        console.log(input);
+                        filter = input.value.toUpperCase();
+                        console.log(filter);
+                        table = document.getElementById("bankhTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[12] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
+                        }
+                }
+                function myCheck3(){
+                    var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("acceptb");
+                        console.log(input);
+                        filter = input.value.toUpperCase();
+                        console.log(filter);
+                        table = document.getElementById("bkashhTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[9] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
+                        }
+                }
+                function myCheck4(){
+                    var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("rejectb");
+                        console.log(input);
+                        filter = input.value.toUpperCase();
+                        console.log(filter);
+                        table = document.getElementById("bkashhTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[9] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
+                        }
+                }
+                           
+               //// bkash
+                function myFunction2() {
+                        var input, filter, table, tr, td,td2, i, txtValue;
+                        input = document.getElementById("myInputb");
+                        console.log(input);
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("bkashhTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[6] ;
+                            td2= tr[i].getElementsByTagName("td")[1] ;
+                            if (td ) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                            
+                            }
+                            
+                        }
+                }
+               
+</script>
+
+                <!-- Connect To firebase -->
+                <script>
+                        // Your web app's Firebase configuration
+                        var firebaseConfig = {
+                            apiKey: "AIzaSyCNV0YyhHuXSDYA09raOqm4yltieY3tVUg",
+                            authDomain: "mcchs-83f7d.firebaseapp.com",
+                            databaseURL: "https://mcchs-83f7d.firebaseio.com",
+                            projectId: "mcchs-83f7d",
+                            storageBucket: "mcchs-83f7d.appspot.com",
+                            messagingSenderId: "836225567141",
+                            appId: "1:836225567141:web:d899394ae2f6f1bd47804c",
+                            measurementId: "G-G15VNHW1JB"
+                        };
+                        // Initialize Firebase
+                        firebase.initializeApp(firebaseConfig);
+                       // firebase.analytics();
+                       const db = firebase.firestore();
+                       
+            </script>
+            <script src="history.js"></script>
+                <!-- Connect to firebase -->
 </body>
 </html> 

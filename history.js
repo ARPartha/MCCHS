@@ -1,6 +1,6 @@
 // Making Bank Data// 
-const Banklist = document.querySelector('#banklist');
-const Bkashlist = document.querySelector('#bkashlist');
+const bankhlist = document.querySelector('#bankhlist');
+const Bkashhlist = document.querySelector('#bkashhlist');
 
 // render data
 var Serial = 1;
@@ -9,11 +9,11 @@ var Serial2 = 1;
 function renderdata(element) {
 
     if (element.data().transectionType == 'bank') {
-
-        if (element.data().requestStatus == 'pending') {
+        if (element.data().requestStatus != 'pending') {
+            console.log(element.data().requestStatus);
             let li = document.createElement('tr');
-            let SLL = document.createElement('td');
-            SLL.style.width = '60px';
+            let SL = document.createElement('td');
+            SL.style.width = '60px';
             let Name = document.createElement('td');
             let FatherName = document.createElement('td');
             let Phone = document.createElement('td');
@@ -26,43 +26,25 @@ function renderdata(element) {
             let BranchName = document.createElement('td');
             let Chequecol = document.createElement('td');
             let cheque = document.createElement('a');
-            // let div = document.createElement('div');
-            //let chequeFrame = document.createElement('img');
+            cheque.href = element.data().requisitionChequePhotoUrl;
+            let div = document.createElement('div');
+            // let chequeFrame = document.createElement('img');
             cheque.classList.add('Nid');
-            //div.classList.add('box');
-            // chequeFrame.style.width = '250px';
+            div.classList.add('box');
+            //  chequeFrame.style.width = '250px';
             // chequeFrame.style.height = '200px';
             // chequeFrame.src = element.data().requisitionChequePhotoUrl;
-            cheque.href = element.data().requisitionChequePhotoUrl;
+
+            /////////////////////////
+
+
+            //////////////////////////
             let Status = document.createElement('td');
-            let rdiv = document.createElement('div');
-            let accept = document.createElement('Button');
-            accept.id = element.id;
-            var s = 'accept';
-            accept.onclick = function() {
+            let adminmessage = document.createElement('td');
 
-                var qurary = '?id=' + accept.id + '&status=' + s;
-                window.location = 'decision.php' + qurary;
-
-            }
-            rdiv.classList.add('buttonbox');
-            accept.innerHTML = 'Accept';
-            accept.style.borderRadius = '20px';
-            let reject = document.createElement('Button');
-            reject.innerHTML = 'Reject';
-            reject.style.margin = '5px';
-            reject.style.borderRadius = '20px';
-            reject.id = element.id;
-            var s = 'reject';
-            reject.onclick = function() {
-
-                var qurary = '?id=' + reject.id + '&status=' + s;
-                window.location = 'decision.php' + qurary;
-
-            }
 
             li.setAttribute('row-id', element.id);
-            SLL.textContent = Serial;
+            SL.textContent = Serial;
 
             Name.textContent = element.data().name;
             FatherName.textContent = element.data().fatherName;
@@ -75,8 +57,9 @@ function renderdata(element) {
             BankName.textContent = element.data().nameOftheBank;
             BranchName.textContent = element.data().branceName;
             cheque.textContent = element.data().requisitionChequePhotoUrl;
-            li.appendChild(SLL);
-
+            Status.textContent = element.data().requestStatus;
+            adminmessage.textContent = element.data().adminMsg;
+            li.appendChild(SL);
             li.appendChild(Name);
             li.appendChild(FatherName);
             li.appendChild(Phone);
@@ -89,26 +72,23 @@ function renderdata(element) {
             li.appendChild(BranchName);
             //////////////////// front/////////
             Chequecol.appendChild(cheque);
-            // Chequecol.appendChild(div);
+            Chequecol.appendChild(div);
             //  div.appendChild(chequeFrame);
             li.appendChild(Chequecol);
             //////////////////////back
-
-            Status.appendChild(rdiv);
-            rdiv.appendChild(accept);
-            rdiv.appendChild(reject);
             li.appendChild(Status);
-            Banklist.appendChild(li);
+            li.appendChild(adminmessage);
+            bankhlist.appendChild(li);
             Serial++;
         }
     }
     //////            bkash
     else if (element.data().transectionType == 'bkash') {
-        if (element.data().requestStatus == 'pending') {
+        if (element.data().requestStatus != 'pending') {
 
             let li = document.createElement('tr');
-            let SLL = document.createElement('td');
-            SLL.style.width = '60px';
+            let SL = document.createElement('td');
+            SL.style.width = '60px';
             let Name = document.createElement('td');
             let FatherName = document.createElement('td');
             let Phone = document.createElement('td');
@@ -118,44 +98,21 @@ function renderdata(element) {
             let bkashNo = document.createElement('td');
             let Chequecol = document.createElement('td');
             let cheque = document.createElement('a');
-            //  let div = document.createElement('div');
-            //  let chequeFrame = document.createElement('img');
-            cheque.classList.add('Nid');
-            //  div.classList.add('box');
-            //  chequeFrame.style.width = '250px';
-            //  chequeFrame.style.height = '200px';
-            //  chequeFrame.src = element.data().requisitionChequePhotoUrl;
             cheque.href = element.data().requisitionChequePhotoUrl;
+            let div = document.createElement('div');
+            //let chequeFrame = document.createElement('img');
+            cheque.classList.add('Nid');
+            div.classList.add('box');
+            // chequeFrame.style.width = '250px';
+            // chequeFrame.style.height = '200px';
+            // chequeFrame.src = element.data().requisitionChequePhotoUrl;
+
+
             let Status = document.createElement('td');
-            let rdiv = document.createElement('div');
-            let accept = document.createElement('Button');
-            rdiv.classList.add('buttonbox');
-            accept.innerHTML = 'Accept';
-            accept.id = element.id;
-            var s = 'accept';
-            accept.onclick = function() {
-
-                var qurary = '?id=' + accept.id + '&status=' + s;
-                window.location = 'decision.php' + qurary;
-
-            }
-            accept.style.borderRadius = '20px';
-            let reject = document.createElement('Button');
-            reject.innerHTML = 'Reject';
-            reject.id = element.id;
-            var s = 'reject';
-            reject.onclick = function() {
-
-                var qurary = '?id=' + reject.id + '&status=' + s;
-                window.location = 'decision.php' + qurary;
-
-            }
-
-            reject.style.margin = '5px';
-            reject.style.borderRadius = '20px';
-
-
+            let adminmessage = document.createElement('td');
             li.setAttribute('row-id', element.id);
+            SL.textContent = Serial2;
+
             Name.textContent = element.data().name;
             FatherName.textContent = element.data().fatherName;
             Phone.textContent = element.data().phone;
@@ -163,9 +120,10 @@ function renderdata(element) {
             Address.textContent = element.data().address;
             HousingSavingNo.textContent = element.data().housingnumber;
             bkashNo.textContent = element.data().bkashNumber;
+            Status.textContent = element.data().requestStatus;
             cheque.textContent = element.data().requisitionChequePhotoUrl;
-            SLL.textContent = Serial2;
-            li.appendChild(SLL);
+            adminmessage.textContent = element.data().adminMsg;
+            li.appendChild(SL);
             li.appendChild(Name);
             li.appendChild(FatherName);
             li.appendChild(Phone);
@@ -175,16 +133,13 @@ function renderdata(element) {
             li.appendChild(bkashNo);
             ///////////////// front/////////
             Chequecol.appendChild(cheque);
-            // Chequecol.appendChild(div);
-            //   div.appendChild(chequeFrame);
+            Chequecol.appendChild(div);
+            //div.appendChild(chequeFrame);
             li.appendChild(Chequecol);
             //////////////////////back
-
-            Status.appendChild(rdiv);
-            rdiv.appendChild(accept);
-            rdiv.appendChild(reject);
             li.appendChild(Status);
-            Bkashlist.appendChild(li);
+            li.appendChild(adminmessage);
+            Bkashhlist.appendChild(li);
             Serial2++;
         }
     }
